@@ -12,6 +12,7 @@
     <name>Advent of Code</name>
     <modules>
         <module>Utilities</module>
+        <module>Day01</module>
     </modules>
 
     <properties>
