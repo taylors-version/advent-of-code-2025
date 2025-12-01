@@ -13,6 +13,7 @@
     <modules>
         <module>Utilities</module>
         <module>Day01</module>
+        <module>Day02</module>
     </modules>
 
     <properties>
