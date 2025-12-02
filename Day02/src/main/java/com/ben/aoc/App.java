@@ -8,7 +8,7 @@ public class App {
     {
         Day2 day2 = new Day2();
         List<String> lines = Util.readFile(App.class, "input.txt");
-        System.out.println("puzzle 1: " + day2.puzzle1(lines));
-        System.out.println("puzzle 2: " + day2.puzzle2(lines));
+        System.out.println("puzzle 1: " + day2.puzzle1(lines.get(0)));
+        System.out.println("puzzle 2: " + day2.puzzle2(lines.get(0)));
     }
 }
