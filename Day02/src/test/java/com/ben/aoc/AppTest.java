@@ -16,4 +16,9 @@ public class AppTest {
         assertEquals(1227775554, day2.puzzle1(testInput));
     }
 
+    @Test
+    public void TestExamplePuzzle2(){
+        assertEquals(4174379265L, day2.puzzle2(testInput));
+    }
+
 }

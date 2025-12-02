@@ -1,9 +1,6 @@
 package com.ben.aoc.collection;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 public class Collection {
 
@@ -110,6 +107,10 @@ public class Collection {
             return result;
         }
         return result;
+    }
+
+    public static <T> boolean verifyAllEqual(List<T> list) {
+        return new HashSet<>(list).size() <= 1;
     }
 
 }
