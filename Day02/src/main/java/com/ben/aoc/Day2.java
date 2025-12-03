@@ -48,15 +48,16 @@ public class Day2 {
             int valLength = val.length();
 
             for (int i = 1; i < valLength; i++){
+                if(invalid){
+                    break;
+                }
                 if(valLength % i == 0) {
                     List<String> split = StringUtil.splitString(val, i);
                     if (Collection.verifyAllEqual(split)){
                         invalid = true;
+                        result += l;
                     }
                 }
-            }
-            if(invalid){
-                result += l;
             }
 
         }
