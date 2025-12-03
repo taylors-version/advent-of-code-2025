@@ -15,6 +15,7 @@
         <module>Day01</module>
         <module>Day02</module>
         <module>Day03</module>
+        <module>Day04</module>
     </modules>
 
     <properties>

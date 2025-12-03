@@ -9,7 +9,7 @@
         <version>1.0</version>
     </parent>
 
-    <artifactId>Day03</artifactId>
+    <artifactId>Day04</artifactId>
     <name>Day 4</name>
 
     <dependencies>
