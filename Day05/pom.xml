@@ -9,8 +9,8 @@
         <version>1.0</version>
     </parent>
 
-    <artifactId>Day03</artifactId>
-    <name>Day 3</name>
+    <artifactId>Day05</artifactId>
+    <name>Day 5</name>
 
     <dependencies>
         <dependency>
