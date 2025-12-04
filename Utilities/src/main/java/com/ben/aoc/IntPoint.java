@@ -46,6 +46,14 @@ public class IntPoint extends Point<Integer> {
 		return neighbours;
 	}
 	
+    public List<Point<Integer>> all8Neighbours(){
+        List<Point<Integer>> neighbours = new ArrayList<>(allNeighbours());
+        neighbours.add(new IntPoint(getX()-1, getY()-1));
+        neighbours.add(new IntPoint(getX()-1, getY()+1));
+        neighbours.add(new IntPoint(getX()+1, getY()-1));
+        neighbours.add(new IntPoint(getX()+1, getY()+1));
 
+        return neighbours;
+    }
 
 }

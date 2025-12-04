@@ -9,13 +9,22 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class AppTest {
 
-    Day4 day4 = new Day4();
-    String testInput = "";
+    String testInput = "..@@.@@@@.\n" +
+            "@@@.@.@.@@\n" +
+            "@@@@@.@.@@\n" +
+            "@.@@@@..@.\n" +
+            "@@.@@@@.@@\n" +
+            ".@@@@@@@.@\n" +
+            ".@.@.@.@@@\n" +
+            "@.@@@.@@@@\n" +
+            ".@@@@@@@@.\n" +
+            "@.@.@@@.@.";
     List<String>input = Arrays.stream(testInput.split("\\n")).toList();
+    Day4 day4 = new Day4(input);
 
     @Test
     public void TestExamplePuzzle1(){
-        assertEquals(0, day4.puzzle1(input));
+        assertEquals(13, day4.puzzle1());
     }
 
 
