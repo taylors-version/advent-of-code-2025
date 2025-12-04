@@ -1,8 +1,6 @@
 package com.ben.aoc;
 
 
-import org.javatuples.Pair;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,22 +15,35 @@ public class Day4 {
     }
 
     public long puzzle1() {
+        return getRemovablePaper(paper).size();
+    }
+
+    public long puzzle2(){
         long result = 0;
-        for (int y = 0; y < paper.length; y++){
-            for(int x = 0; x < paper[0].length; x++){
-                if (paper[y][x] == '@' && countNeighbours(new IntPoint(x, y)) < 4){
-                    result++;
-                }
+        char[][] newPaper = paper;
+        List<IntPoint> removable = getRemovablePaper(newPaper);
+        while (!removable.isEmpty()){
+            result += removable.size();
+            for (IntPoint p : removable){
+                newPaper[p.getY()][p.getX()] = '.';
             }
+            removable = getRemovablePaper(newPaper);
         }
 
         return result;
     }
 
-    public long puzzle2(){
-        long result = 0;
-
-        return result;
+    private List<IntPoint> getRemovablePaper(char[][] papers){
+        List<IntPoint> removable = new ArrayList<>();
+        for (int y = 0; y < paper.length; y++){
+            for(int x = 0; x < paper[0].length; x++){
+                IntPoint p = new IntPoint(x,y);
+                if (paper[y][x] == '@' && countNeighbours(p) < 4){
+                    removable.add(p);
+                }
+            }
+        }
+        return removable;
     }
 
     private int countNeighbours(IntPoint point){
@@ -50,10 +61,7 @@ public class Day4 {
     private boolean isInGrid(IntPoint point){
         int maxX = paper[0].length - 1;
         int maxY = paper.length - 1;
-        if (point.getX() < 0 || point.getX() > maxX || point.getY() < 0 || point.getY() > maxY){
-            return false;
-        }
-        return true;
+        return point.getX() >= 0 && point.getX() <= maxX && point.getY() >= 0 && point.getY() <= maxY;
     }
 
 }
