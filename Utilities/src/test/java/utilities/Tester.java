@@ -5,8 +5,10 @@ import static org.junit.jupiter.api.Assertions.*;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
+import com.ben.aoc.Range;
 import org.junit.jupiter.api.Test;
 
 import com.ben.aoc.IntPoint;
@@ -92,5 +94,36 @@ public class Tester
 		numbers.add(3793L);
 		assertEquals(228300182686739L, Maths.lcm(numbers));
 	}
+
+    @Test
+    public void testRangeSort(){
+        List<Range> ranges = new ArrayList<>();
+        ranges.add(new Range(7,10));
+        ranges.add(new Range(1,4));
+        ranges.add(new Range(3,5));
+        ranges.add(new Range(2,6));
+
+        List<Range> sorted = new ArrayList<>();
+        sorted.add(new Range(1,4));
+        sorted.add(new Range(2,6));
+        sorted.add(new Range(3,5));
+        sorted.add(new Range(7,10));
+        Collections.sort(ranges);
+
+        assertEquals(sorted, ranges);
+    }
+
+    @Test
+    public void testRangeReduce(){
+        List<Range> ranges = new ArrayList<>();
+        ranges.add(new Range(3,10));
+        ranges.add(new Range(4,7));
+
+        List<Range> expected = new ArrayList<>();
+        expected.add(new Range(3,10));
+
+        List<Range> reduced = Range.reduce(ranges);
+        assertEquals(expected, reduced);
+    }
 	
 }

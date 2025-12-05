@@ -1,6 +1,8 @@
 package com.ben.aoc;
 
 
+import com.ben.aoc.collection.Collection;
+
 import java.util.*;
 
 public class Day5 {
@@ -35,47 +37,13 @@ public class Day5 {
                 freshRanges.add(new Range(l));
             }
         }
-        freshRanges.sort((r1, r2) -> {
-            if (r1.start == r2.start) {
-                if (r1.end < r2.end) return -1;
-                if (r1.end > r2.end) return 1;
-                return 0;
-            } else {
-                if (r1.start < r2.start) return -1;
-            }
-            return 1;
-        });
-        List<Range> condensed = condenseRanges(freshRanges);
 
-        for (Range r : condensed){
+        for (Range r : Range.reduce(freshRanges)){
             result += (r.end + 1) - r.start;
         }
         return result;
     }
 
-    private List<Range> condenseRanges(List<Range> ranges){
-        List<Range> condensed = new ArrayList<>();
-        condensed.add(ranges.get(0));
-        for(int i = 1; i < ranges.size(); i++){
-            Range r = ranges.get(i);
-            boolean merged = false;
-            for (int j = 0; j < condensed.size(); j++){
-                Range compared = condensed.get(j);
-                if(r.start <= compared.end){
-                    if(r.end >= compared.end){
-                        Range newRange = new Range(compared.start, r.end);
-                        condensed.set(j, newRange);
-                    }
-                    merged = true;
-                    break;
-                }
-            }
-            if (!merged){
-                condensed.add(r);
-            }
-        }
-        return condensed;
-    }
 
 
 }
