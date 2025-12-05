@@ -1,8 +1,6 @@
 package com.ben.aoc;
 
 
-import com.ben.aoc.collection.Collection;
-
 import java.util.*;
 
 public class Day5 {
@@ -20,7 +18,7 @@ public class Day5 {
         }
         for(Long i: ingredients){
             for (Range r : freshRanges){
-                if (r.inRange(i)){
+                if (r.contains(i)){
                     result++;
                     break;
                 }
@@ -39,7 +37,7 @@ public class Day5 {
         }
 
         for (Range r : Range.reduce(freshRanges)){
-            result += (r.end + 1) - r.start;
+            result += r.length();
         }
         return result;
     }

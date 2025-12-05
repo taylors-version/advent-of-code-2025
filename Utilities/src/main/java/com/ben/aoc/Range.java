@@ -20,12 +20,15 @@ public class Range implements Comparable<Range>{
         this.end = end;
     }
 
-    public boolean inRange(long val){
+    public boolean contains(long val){
         return start <= val && val <= end;
     }
 
+    public long length(){
+        return end - start + 1L;
+    }
+
     public boolean isOverlap(Range r){
-        boolean ben = (r.start >= start && r.start <= end) || (r.end >= start && r.end <= end);
         return (r.start >= start && r.start <= end) || (r.end >= start && r.end <= end);
     }
 
@@ -69,10 +72,9 @@ public class Range implements Comparable<Range>{
         if(this == o){
             return true;
         }
-        if(!(o instanceof Range)){
+        if(!(o instanceof Range r)){
             return false;
         }
-        Range r = (Range) o;
         return this.start == r.start && this.end == r.end;
     }
 
