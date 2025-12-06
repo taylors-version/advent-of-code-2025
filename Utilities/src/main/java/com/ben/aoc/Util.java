@@ -54,6 +54,16 @@ public class Util {
 		}
 		return result;
 	}
+
+    public static String[][] transposeMatrix(String[][] matrix){
+        String[][] result = new String[matrix[0].length][matrix.length];
+        for(int i = 0; i<matrix.length; i++) {
+            for(int j = 0; j<matrix[0].length; j++) {
+                result[j][i] = matrix[i][j];
+            }
+        }
+        return result;
+    }
 	
 	public static Object[][] transposeMatrix(Object[][] matrix){
 		Object[][] result = new Object[matrix[0].length][matrix.length];
@@ -101,6 +111,7 @@ public class Util {
 		}
 		return result;
 	}
+
 	
 	public static Object[][] rotateMatrix(Object[][] matrix){
 		Object[][] result = new Object[matrix[0].length][matrix.length];
