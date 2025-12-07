@@ -29,7 +29,7 @@ public class Day7 {
     }
 
     public long puzzle2(List<String> input){
- Map<Integer, Long> timelines = new HashMap<>();
+        Map<Integer, Long> timelines = new HashMap<>();
         timelines.put(input.get(0).indexOf('S'), 1L);
         for (int i = 2; i < input.size(); i+=2){
             String level = input.get(i);
