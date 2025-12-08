@@ -39,7 +39,7 @@ public class AppTest {
 
     @Test
     public void TestExamplePuzzle2(){
-        assertEquals(0, day8.puzzle2(input));
+        assertEquals(25272, day8.puzzle2(input));
     }
 
 }
