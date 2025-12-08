@@ -1,7 +1,6 @@
 package com.ben.aoc;
 
 import com.ben.aoc.collection.Collection;
-import org.javatuples.Pair;
 import org.javatuples.Triplet;
 
 import java.util.*;
@@ -10,7 +9,6 @@ import java.util.*;
 public class Day8 {
 
     public long puzzle1(List<String> input, int connectionCount) {
-        long result = 0;
         List<Point3d> boxes = new ArrayList<>();
         for(String l : input){
             boxes.add(new Point3d(l));
@@ -20,9 +18,7 @@ public class Day8 {
         for(List<Point3d> c : possibleCombinations){
             possiblePairings.add(new Triplet<>(c.get(0), c.get(1), Point3d.distance(c.get(0), c.get(1))));
         }
-        possiblePairings.sort((obj1, obj2) -> {
-            return Double.compare(((Triplet<Point3d, Point3d, Double>) obj1).getValue2(), ((Triplet<Point3d, Point3d, Double>) obj2).getValue2());
-        });
+        possiblePairings.sort(Comparator.comparingDouble(Triplet::getValue2));
 
         List<Set<Point3d>> connections = new ArrayList<>();
         for(int i = 0; i < connectionCount; i++){
@@ -67,9 +63,7 @@ public class Day8 {
         for(List<Point3d> c : possibleCombinations){
             possiblePairings.add(new Triplet<>(c.get(0), c.get(1), Point3d.distance(c.get(0), c.get(1))));
         }
-        possiblePairings.sort((obj1, obj2) -> {
-            return Double.compare(((Triplet<Point3d, Point3d, Double>) obj1).getValue2(), ((Triplet<Point3d, Point3d, Double>) obj2).getValue2());
-        });
+        possiblePairings.sort(Comparator.comparingDouble(Triplet::getValue2));
 
         List<Set<Point3d>> connections = new ArrayList<>();
 
