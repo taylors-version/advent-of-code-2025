@@ -18,18 +18,24 @@ public class AppTest {
     @Test
     public void TestMachine2Buttons(){
         Machine m = new Machine("[.##.] (3) (1,3) (2) (2,3) (0,2) (0,1) {3,5,4,7}");
-        assertEquals(2, m.buttonsForDesired());
+        assertEquals(2, m.buttonsForIndicators());
     }
 
     @Test
     public void TestMachine3Buttons(){
         Machine m = new Machine("[...#.] (0,2,3,4) (2,3) (0,4) (0,1,2) (1,2,3,4) {7,5,12,7,2}");
-        assertEquals(3, m.buttonsForDesired());
+        assertEquals(3, m.buttonsForIndicators());
     }
 
     @Test
     public void TestExamplePuzzle1(){
         assertEquals(7, day10.puzzle1(input));
+    }
+
+    @Test
+    public void TestMachine1Joltage(){
+        Machine m = new Machine("[....] (0) (1) {0,1}");
+        assertEquals(1, m.buttonsForJoltage());
     }
 
     @Test

@@ -31,12 +31,12 @@ public class Machine {
         }
     }
 
-    public int buttonsForDesired(){
+    public int buttonsForIndicators(){
         if(buttons.contains(desiredButtons)){
             return 1;
         }
 
-        for(int i = 2; i<20; i++){
+        for(int i = 2; i<=buttons.size(); i++){
             List<List<List<Integer>>> combinations = Collection.combinationsUtil(buttons, i);
             for (List<List<Integer>> combo : combinations){
                 if(desiredButtons.equals(resultAfterPressingButtons(combo))){
@@ -45,6 +45,11 @@ public class Machine {
             }
         }
         return Integer.MAX_VALUE;
+    }
+
+    public int buttonsForJoltage(){
+        int maxIndex = joltageRequirement.indexOf(Collections.max(joltageRequirement));
+        return 0;
     }
 
     private List<Integer> resultAfterPressingButtons(List<List<Integer>> buttonPresses){
