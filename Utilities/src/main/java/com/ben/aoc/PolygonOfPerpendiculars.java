@@ -9,10 +9,10 @@ public class PolygonOfPerpendiculars {
     private final NavigableMap<Integer, List<Pair<Integer, Integer>>> horizontalEdges = new TreeMap<>();
     private final Map<IntPoint, Boolean> containsCache = new HashMap<>();
 
-    public PolygonOfPerpendiculars(List<IntPoint> vertices){
-        for(int i = 0; i < vertices.size(); i++){
-            IntPoint tileA = vertices.get(i);
-            IntPoint tileB = vertices.get((i+1) % vertices.size());
+    public PolygonOfPerpendiculars(List<IntPoint> orderedVertices){
+        for(int i = 0; i < orderedVertices.size(); i++){
+            IntPoint tileA = orderedVertices.get(i);
+            IntPoint tileB = orderedVertices.get((i+1) % orderedVertices.size());
             addEdge(tileA, tileB);
         }
     }

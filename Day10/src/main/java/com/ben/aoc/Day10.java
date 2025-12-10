@@ -23,7 +23,9 @@ public class Day10 {
         for (String l : input){
             machines.add(new Machine(l));
         }
-
+        for(Machine m : machines){
+            result+=m.buttonsForJoltage();
+        }
         return result;
     }
 

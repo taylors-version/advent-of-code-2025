@@ -39,6 +39,12 @@ public class AppTest {
     }
 
     @Test
+    public void TestMachine12Joltage(){
+        Machine m = new Machine("[...#.] (0,2,3,4) (2,3) (0,4) (0,1,2) (1,2,3,4) {7,5,12,7,2}");
+        assertEquals(12, m.buttonsForJoltage());
+    }
+
+    @Test
     public void TestExamplePuzzle2(){
         assertEquals(33, day10.puzzle2(input));
     }

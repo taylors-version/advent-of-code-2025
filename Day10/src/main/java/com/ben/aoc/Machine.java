@@ -1,9 +1,11 @@
 package com.ben.aoc;
 
 import com.ben.aoc.collection.Collection;
+import com.microsoft.z3.*;
 
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class Machine {
 
@@ -48,9 +50,52 @@ public class Machine {
     }
 
     public int buttonsForJoltage(){
-        int maxIndex = joltageRequirement.indexOf(Collections.max(joltageRequirement));
-        return 0;
+        Context context = new Context();
+        Optimize optimize = context.mkOptimize();
+        IntExpr buttonPresses = context.mkIntConst("buttonPresses");
+
+        IntExpr[] buttonVals = IntStream.range(0, buttons.size())
+                .mapToObj(i -> context.mkIntConst("button " + i))
+                .toArray(IntExpr[]::new);
+        Map<Integer, List<IntExpr>> buttonsForEachPosition = new HashMap<>();
+
+        for(int i = 0; i < buttons.size(); i++){
+            IntExpr buttonVal = buttonVals[i];
+            for(int pos : buttons.get(i)){
+                buttonsForEachPosition.computeIfAbsent(pos, k -> new ArrayList<>()).add(buttonVal);
+            }
+        }
+
+        for(Map.Entry<Integer, List<IntExpr>> entry : buttonsForEachPosition.entrySet()){
+            IntExpr targetVal = context.mkInt(joltageRequirement.get(entry.getKey()));
+            IntExpr[] buttonPressesArray = entry.getValue().toArray(new IntExpr[0]);
+            IntExpr sumOfButtonPresses = (IntExpr) context.mkAdd(buttonPressesArray);
+            BoolExpr equation = context.mkEq(targetVal, sumOfButtonPresses);
+            optimize.Add(equation);
+        }
+
+        IntExpr zero = context.mkInt(0);
+        for(IntExpr buttonVal : buttonVals){
+            BoolExpr nonNegative = context.mkGe(buttonVal, zero);
+            optimize.Add(nonNegative);
+        }
+
+        IntExpr sumOfAllButtonVals = (IntExpr) context.mkAdd(buttonVals);
+        BoolExpr totalPressesEq = context.mkEq(buttonPresses, sumOfAllButtonVals);
+        optimize.Add(totalPressesEq);
+
+        optimize.MkMinimize(buttonPresses);
+
+        Status status = optimize.Check();
+        if(status == Status.SATISFIABLE){
+            Model model = optimize.getModel();
+            IntNum result = (IntNum) model.evaluate(buttonPresses, false);
+            return result.getInt();
+        }
+
+        return Integer.MIN_VALUE;
     }
+
 
     private List<Integer> resultAfterPressingButtons(List<List<Integer>> buttonPresses){
         List<Integer> result = new ArrayList<>();

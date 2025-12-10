@@ -58,6 +58,11 @@
                 <artifactId>commons-lang3</artifactId>
                 <version>3.18.0</version>
             </dependency>
+            <dependency>
+                <groupId>tools.aqua</groupId>
+                <artifactId>z3-turnkey</artifactId>
+                <version>4.14.1</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
