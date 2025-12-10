@@ -73,40 +73,21 @@ public class Collection {
 
     public static <T> List<List<T>> combinationsUtil(List<T> l, Integer n){
         List<List<T>> result = new ArrayList<>();
-        if(n == 1){
-            for(T element : l) {
-                List<T> sub = new ArrayList<>();
-                sub.add(element);
-                result.add(sub);
-            }
-            return result;
-        }
-        if(n == 2){
-            for(int i = 0; i < l.size() - 1; i++){
-                for(int j = i+1; j<l.size(); j++){
-                    List<T> sub = new ArrayList<>();
-                    sub.add(l.get(i));
-                    sub.add(l.get(j));
-                    result.add(sub);
-                }
-            }
-            return result;
-        }
-        if(n == 3){
-            for(int i = 0; i < l.size() - 2; i++){
-                for(int j = i+1; j<l.size() - 1; j++){
-                    for(int k = j+1; k<l.size(); k++) {
-                        List<T> sub = new ArrayList<>();
-                        sub.add(l.get(i));
-                        sub.add(l.get(j));
-                        sub.add(l.get(k));
-                        result.add(sub);
-                    }
-                }
-            }
-            return result;
-        }
+        List<T> list = new ArrayList<>();
+        combinationsHelper(0, n, list, result, l);
         return result;
+    }
+
+    private static <T> void combinationsHelper(int index, int n, List<T> l, List<List<T>> result, List<T> original){
+        if (l.size() == n){
+            result.add(new ArrayList<>(l));
+            return;
+        }
+        for (int i = index; i < original.size(); i++){
+            l.add(original.get(i));
+            combinationsHelper(i+1, n, l, result, original);
+            l.remove(l.size()-1);
+        }
     }
 
     public static <T> boolean verifyAllEqual(List<T> list) {

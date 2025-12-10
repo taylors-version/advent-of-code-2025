@@ -21,6 +21,7 @@
         <module>Day07</module>
         <module>Day08</module>
         <module>Day09</module>
+        <module>Day10</module>
     </modules>
 
     <properties>
@@ -56,6 +57,11 @@
                 <groupId>org.apache.commons</groupId>
                 <artifactId>commons-lang3</artifactId>
                 <version>3.18.0</version>
+            </dependency>
+            <dependency>
+                <groupId>tools.aqua</groupId>
+                <artifactId>z3-turnkey</artifactId>
+                <version>4.14.1</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
