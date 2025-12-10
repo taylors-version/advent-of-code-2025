@@ -7,14 +7,13 @@ import java.util.stream.Collectors;
 
 public class Machine {
 
-    NavigableMap<Integer, Boolean> indicators = new TreeMap<>();
     List<Integer> desiredButtons = new ArrayList<>();
     List<List<Integer>> buttons = new ArrayList<>();
+    List<Integer> joltageRequirement = new ArrayList<>();
 
     public Machine(String machine){
         String[] split = machine.split(" ");
         for (int i = 1; i < split[0].length() -1; i++){
-            indicators.put(i-1, split[0].charAt(i)=='#');
             if(split[0].charAt(i)=='#') {
                 desiredButtons.add(i - 1);
             }
@@ -26,6 +25,10 @@ public class Machine {
             }
             buttons.add(button);
         }
+        String[] joltages = split[split.length-1].substring(1, split[split.length-1].length()-1).split(",");
+        for(String j : joltages){
+            joltageRequirement.add(Integer.parseInt(j));
+        }
     }
 
     public int buttonsForDesired(){
@@ -34,9 +37,6 @@ public class Machine {
         }
 
         for(int i = 2; i<20; i++){
-            if(i == 3){
-                int ben = 10;
-            }
             List<List<List<Integer>>> combinations = Collection.combinationsUtil(buttons, i);
             for (List<List<Integer>> combo : combinations){
                 if(desiredButtons.equals(resultAfterPressingButtons(combo))){
@@ -44,8 +44,7 @@ public class Machine {
                 }
             }
         }
-
-        return 100;
+        return Integer.MAX_VALUE;
     }
 
     private List<Integer> resultAfterPressingButtons(List<List<Integer>> buttonPresses){
@@ -66,10 +65,7 @@ public class Machine {
     @Override
     public String toString(){
         StringBuilder value = new StringBuilder("[");
-        for (int i = 0; i < indicators.size(); i++){
-            char indicator = indicators.get(i) ? '#' : '.';
-            value.append(indicator);
-        }
+        value.append(desiredButtons.stream().map(String::valueOf).collect(Collectors.joining(",")));
         value.append("] ");
         for(List<Integer> button : buttons){
             value.append("(");
