@@ -7,7 +7,13 @@ public class Day10 {
 
     public long puzzle1(List<String> input) {
         long result = 0;
-
+        List<Machine> machines = new ArrayList<>();
+        for (String l : input){
+            machines.add(new Machine(l));
+        }
+        for (Machine m : machines){
+            result += m.buttonsForDesired();
+        }
        return result;
     }
 
