@@ -12,7 +12,7 @@ public class Day11 {
             devices.add(d);
         }
         Device start = devices.stream().filter(d -> d.name.equals("you")).findFirst().get();
-        return start.getPathstoOut(devices);
+        return start.getPathsToOut(devices);
     }
 
     public long puzzle2(List<String> input){
@@ -22,8 +22,7 @@ public class Day11 {
             devices.add(d);
         }
         Device start = devices.stream().filter(d -> d.name.equals("svr")).findFirst().get();
-        return start.getPathstoOutTracking(devices, new HashSet<>());
-
+        return start.getPathsToOutTracking(devices, false, false);
     }
 
 

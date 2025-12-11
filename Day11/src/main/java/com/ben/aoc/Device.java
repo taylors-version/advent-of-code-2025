@@ -1,11 +1,12 @@
 package com.ben.aoc;
 
-import org.javatuples.Pair;
+import org.javatuples.Triplet;
 
 import java.util.*;
 
 public class Device {
-    static HashMap<Pair<Device, Set<String>>, Integer> pathsToOut = new HashMap<>();
+    static HashMap<String, Long> pathsToOut = new HashMap<>();
+    static HashMap<Triplet<String, Boolean, Boolean>, Triplet<Long, Boolean, Boolean>> pathsTrackedToOut = new HashMap<>();
 
 
     String name;
@@ -17,50 +18,53 @@ public class Device {
         outputs.addAll(List.of(outs));
     }
 
-    public int getPathstoOut(List<Device> devices){
-        if(pathsToOut.containsKey(this)){
-            return pathsToOut.get(this);
+    public long getPathsToOut(List<Device> devices){
+        if(pathsToOut.containsKey(this.name)){
+            return pathsToOut.get(this.name);
         }else{
-            int paths = 0;
+            long paths = 0;
             for(String output : outputs){
-                Device device = devices.stream().filter(d -> d.name.equals(output)).findFirst().get();
-                paths += device.getPathstoOut(devices);
+                if(output.equals("out")){
+                    paths++;
+                }else {
+                    Device device = devices.stream().filter(d -> d.name.equals(output)).findFirst().get();
+                    paths += device.getPathsToOut(devices);
+                }
             }
+            pathsToOut.put(this.name, paths);
             return paths;
+
         }
     }
 
-    public int getPathstoOutTracking(List<Device> devices, Set<String> route){
-        if(route.contains(name)){
-            return 0;
-        }
-        if(pathsToOut.containsKey(new Pair<>(this, route))){
-            if(route.contains("dac") && route.contains("fft")) {
-                return pathsToOut.get(new Pair<>(this, route));
-            }else{
-                return 0;
-            }
+    public long getPathsToOutTracking(List<Device> devices, boolean fft, boolean dac){
+        Triplet<String, Boolean, Boolean> key = new Triplet<>(this.name, fft, dac);
+        if(pathsTrackedToOut.containsKey(key)){
+            return pathsTrackedToOut.get(key).getValue0();
         }else{
-            int paths = 0;
+            long paths = 0;
             for(String output : outputs){
                 if(output.equals("out")){
-                    if(route.contains("dac") && route.contains("fft")) {
-                        pathsToOut.put(new Pair<>(this, route), 1);
-                        return 1;
+                    if(fft && dac){
+                        return 1L;
                     }else{
-                        pathsToOut.put(new Pair<>(this, route), 0);
-                        return 0;
+                        return 0L;
                     }
-
                 }else {
                     Device device = devices.stream().filter(d -> d.name.equals(output)).findFirst().get();
-                    Set<String> newRoute = new HashSet<>(route);
-                    newRoute.add(name);
-                    paths += device.getPathstoOutTracking(devices, newRoute);
-                    pathsToOut.put(new Pair<>(this, route), paths);
+                    boolean seenFtt = fft || output.equals("fft");
+                    boolean seenDac = dac || output.equals("dac");
+                    paths += device.getPathsToOutTracking(devices, seenFtt, seenDac);
                 }
             }
+            pathsTrackedToOut.put(key, new Triplet<>(paths, fft, dac));
             return paths;
+
         }
+    }
+
+    @Override
+    public String toString(){
+        return name;
     }
 }
