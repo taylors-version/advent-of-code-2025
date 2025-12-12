@@ -112,6 +112,16 @@ public class Util {
 		return result;
 	}
 
+    public static boolean[][] rotateMatrix(boolean[][] matrix){
+        boolean[][] result = new boolean[matrix[0].length][matrix.length];
+        for(int i = 0; i<matrix.length; i++) {
+            for(int j = 0; j<matrix[0].length; j++) {
+                result[j][(matrix.length-1) -i] = matrix[i][j];
+            }
+        }
+        return result;
+    }
+
 	
 	public static Object[][] rotateMatrix(Object[][] matrix){
 		Object[][] result = new Object[matrix[0].length][matrix.length];
@@ -164,6 +174,16 @@ public class Util {
 		}
 		return result;
 	}
+
+    public static boolean[][]flipMatrixNS(boolean[][] matrix){
+        boolean[][] result = new boolean[matrix.length][matrix[0].length];
+        for(int i = 0; i<matrix.length; i++) {
+            for(int j = 0; j<matrix[0].length; j++) {
+                result[(matrix.length-1)-i][j] = matrix[i][j];
+            }
+        }
+        return result;
+    }
 	
 	public static char[][]flipMatrixEW(char[][] matrix){
 		char[][] result = new char[matrix.length][matrix[0].length];
@@ -174,6 +194,16 @@ public class Util {
 		}
 		return result;
 	}
+
+    public static boolean[][]flipMatrixEW(boolean[][] matrix){
+        boolean[][] result = new boolean[matrix.length][matrix[0].length];
+        for(int i = 0; i<matrix.length; i++) {
+            for(int j = 0; j<matrix[0].length; j++) {
+                result[i][(matrix[0].length-1) -j] = matrix[i][j];
+            }
+        }
+        return result;
+    }
 	
 	public static void printMatrix(char[][] matrix) {
 		for(int i = 0; i<matrix.length; i++) {
